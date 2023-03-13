@@ -1,0 +1,46 @@
+
+1.Environment configuration
+
+follow the command:
+conda create --name tf2 python=3.7
+conda activate tf2
+pip install tensorflow==2.1.0
+conda install cudatoolkit=10.1
+conda install cudnn=7.6.5
+
+Also,numpy and pandas are needed.
+
+
+2.usage
+follow the command:
+
+conda activate tf2
+
+python3 ($)/dnn/3out_model.py --train_csv="/home/parallels/dnn/data1218.csv"  --predic_csv="/home/parallels/dnn/test1217.csv" 
+
+parameters:
+--train_csv  the dataset used to trainning
+--predic_csv the dataset used to test the prediction performance of trained model
+
+optional parameters:
+--seed random seed
+--verbose  if the trainning process is not needed, set it to 0
+--train_graph  loss graph during trainning, if you want, set it to True
+--error_graph  comparison between predicted value and actual value, if you want, set it to True
+--index if you want to change the input of the neural network, set it here, as string
+
+for example:
+using following command, you will get same results as I showed in document:
+trainning with all inputs:
+python3 ($)/dnn/3out_model.py --seed=34 --train_csv="/home/parallels/dnn/data1218.csv"  --predic_csv="/home/parallels/dnn/test1217.csv" --verbose=0 --train_graph=True --error_graph=True
+
+training with selected inputs:
+python3 ($)/dnn/3out_model.py --seed=34 --train_csv="/home/parallels/dnn/data1218.csv"  --predic_csv="/home/parallels/dnn/test1217.csv" --verbose=0 --train_graph=True --error_graph=True --index='number_static_obs','OccupancyRatio','size_dynamic_obs','number_dynamic_obs','MapSize'
+
+
+3.feature selection
+if you want do the feature selection,
+run
+python3 ($)/dnn/selection.py
+
+it will do the feature selection on 3out_model.py, if you want to try it on other model, change the variable "command" in code
