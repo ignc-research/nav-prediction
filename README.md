@@ -37,7 +37,3 @@ cd ../../.. && catkin_make
 ```
 
 Finished!
-
-#### TODO
-
-Everything
