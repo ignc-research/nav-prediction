@@ -6,7 +6,7 @@ Clone repo in any catkin ws or create new catkin ws
 git clone git@github.com:Arena-Rosnav/arena-rosnav.git
 ```
 
-Change into dir
+Change into dir 
 
 ```
 cd arena-rosnav
