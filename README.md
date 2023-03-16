@@ -2,64 +2,20 @@
 [![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 
-# Arena-bench (RA-L and IROS 22)
-This repository provides the code used in our paper ["Arena-Bench: A Benchmarking Suite for Obstacle Avoidance Approaches in Highly Dynamic Environments"](https://arxiv.org/abs/2206.05728) (accepted for publication in the IEEE Robotics and Automation Letters). The scope of this project is to provide a benchmark suite to compare and evaluate classic and learning-based dynamic obstacle avoidance approaches on different robotic systems in highly dynamic simulation environments. [Link to demo video.](https://www.youtube.com/watch?v=1YIHD0gBEEE&t=8s)
-
-- [Benchmark scenarios](#benchmark-scenarios)
-- [Benchmark architecture](#benchmark-architecture)
-- [Running the Benchmark](#running-the-benchmark)
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
-    - [Manually running the benchmark](#manually-running-the-benchmark)
-- [Thanks](#thanks)
-
-If you find this repository useful, please cite our paper
-```
-@ARTICLE{9827557,
-
-  author={Kästner, Linh and Bhuiyan, Teham and Le, Tuan Anh and Treis, Elias and Cox, Johannes and Meinardus, Boris and Kmiecik, Jacek and Carstens, Reyk and Pichel, Duc and Fatloun, Bassel and Khorsandi, Niloufar and Lambrecht, Jens},
-  journal={IEEE Robotics and Automation Letters}, 
-  title={Arena-Bench: A Benchmarking Suite for Obstacle Avoidance Approaches in Highly Dynamic Environments}, 
-  year={2022},
-  pages={1-8},
-  doi={10.1109/LRA.2022.3190086}}
-
-```
----
-## Benchmark scenarios
-Benchmarking scenarios were developed uniquely combining the following components
-| **Robot** | **World**  | **Planner**  | **Obstacles** |
-| :-------- | :------------ | :---------- | :------- |
-| - `jackal`  <br> - `burger` <br> - `robotino` (rto) | - `small_warehouse` <br> - `map2` <br> - `map5` | - `teb` <br> - `dwa` <br> - `mpc` <br> - `rosnav` <br> - `cadrl` <br>  | - `5` <br> - `10` |
-
-The following clips show examples of the implemented scenarios:
+# Nav-Prediction 
+This repository provides tools to record navigation metrics and predict the navigation performance of planners.
 
 
- <img height="320" src="/docs/imgs/map5-jackal.gif">   <img height="320" src="/docs/imgs/sw-burger.gif">
+
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Recording](#recording)
+
 
 
 ---
-## Benchmark architecture
-<img src="/docs/imgs/architecture.jpg">
-The repository is structured into a modular architecture with four models at its core.
 
-- [Arena-Tools](https://github.com/ignc-research/arena-tools):
-this module is being responsible to create custom worlds, scenarios, and obstacles and adding those to the respective location. It is possible to use arena-bench without arena-tools as several worlds, scenarios and obstacles have already been included, including all scenarios and worlds to reproduce this paper.
-
-- [Arena-Rosnav](https://github.com/ignc-research/arena-rosnav):
-this module contains a custom task-generator and the 2D simulation engine Flatland, enabling robot simulation in 2D Flatland environments (note that this repository has been added recently to the arena-bench repository, and is therefore not part of the original paper).
-
-- [Arena-Rosnav-3D](https://github.com/ignc-research/arena-rosnav-3D):
-this module contains a custom task-generator and the 3D simulation engine Gazebo, enabling robot simulation in 3D Gazebo environments.
-
-- [Arena-Evaluation](https://github.com/ignc-research/arena-evaluation):
-this module can be used to record and evaluate simulation runs and visualize Robot performance by creating qualitative and quantitative plots.
-
-> **NOTE**: All modular components have their individual repository and are currently being extended with additional features
-
----
-## Running the Benchmark
-#### Prerequisites
+## Prerequisites
 Below is the software we used. We cannot guarantee older versions of the software to work. Yet, newer software is most likely working just fine.
 
 | Software      | Version        |
@@ -67,25 +23,67 @@ Below is the software we used. We cannot guarantee older versions of the softwar
 | OS            | Ubuntu 20.04.4 |
 | Python        | 3.8.10         |
 
-#### Installation
-To install the repo run:
-```bash
-wget https://raw.githubusercontent.com/ignc-research/arena-bench/main/setup.sh -O - | bash
-```
-#### Manually running the benchmark
-You can run specific scenarios, be using the following syntax:
-<pre class="devsite-click-to-copy">
-roslaunch arena_bringup start_arena_gazebo.launch local_planner:=<var>PLANNER</var> world:=<var>WORLD</var> model:=<var>ROBOT</var> scenario_file:=<var>SCENARIO_FILE</var>
-</pre>
-with the choice of:
-- `PLANNER`: dwa, teb, mpc, rosnav, cadrl
-- `WORLD`: small_warehouse, map2, map5
-- `ROBOT`: turtlebot3_burger, jackal, rto
-- `SCENARIO_FILE`: map2_obs05.json, map2_obs10.json, map5_obs05.json, map5_obs10.json, small_warehouse_obs05.json, small_warehouse_obs10.json
 
-Example command:
-```bash
-workon rosnav
-roslaunch arena_bringup start_arena_gazebo.launch local_planner:=dwa world:=map2 model:=turtlebot3_burger scenario_file:=map2_obs05.json
-```
+
+
 ---
+## Installation
+Create a catkin workspace
+Clone the repo:
+```
+git clone git@github.com:ignc-research/nav-prediction.git
+```
+Change into dir:
+```
+cd nav-prediction
+```
+Ros install
+```
+rosws update
+```
+Install python pkgs, you need poetry for this
+```
+poetry shell&&poetry install
+```
+Install stable baselines
+```
+cd ../forks/stable-baselines3 && pip install -e .
+```
+Build catkin
+```
+cd ../../.. && catkin_make
+```
+For running the recording pipeline, install other requirements:
+```
+cd src/utils/navpred-data-recorder/pipelines/original && pip install -r requirements.txt
+pip install mpi4py
+```
+Finish
+
+
+
+
+---
+## Recording
+Recording should running in poetry:
+```
+cd ($your workspace)/src/nav-prediction && poetry shell
+```
+
+To record data as .csv file, you need to go inside the dir:
+```
+cd ($your workspace)/src/utils/navpred-data-recorder/pipelines/original
+```
+Then run the command:
+```
+python3 pipeline_script_ver2.py —num_maps (number of maps) —num_episodes (number of episodes)
+```
+You can set how many maps you want to record and how many times simulation resets on a map.
+For example, if you want to record 500 lines of data which based on 500 maps, and for each map, the simulation will resets 30 times, then run:
+```
+python3 pipeline_script_ver2.py —num_maps 500 —num_episodes 30
+```
+To facilitate the process of gathering only the data of recordings that finished successfully, running the command after finishing recording a batch:
+```
+python3 collect_records.py
+```
