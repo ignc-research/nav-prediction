@@ -3,19 +3,44 @@
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 
 # Nav-Prediction 
-This repository provides tools to record navigation metrics and predict the navigation performance of planners.
+This repository provides the code used in our paper [Predicting Navigational Performance of Obstacle Avoidance Approaches Using Deep Neural Networks]().
+It provides tools to record navigation metrics and predict the navigation performance of planners. [Link to demo video.]()
 
 
+- [Training Pipeline](#training-pipeline)
+- [Running the Pipeline](#running-the-pipeline)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Recording](#recording)
 
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Recording](#recording)
+
+---
+## Training Pipeline
+<img src="/docs/imgs/trainning_pipeline.png">
+Our pipeline consists of four main modules and neural networks:
+
+- Map-Generator: 
+This module provides variability in the input parameters and generates a different map for each simulation run.
+
+- [Arena-bench Simulation](https://github.com/ignc-research/arena-bench):
+This module is the development platform of our previous works, which is responsible for preparing and running the simulations. It takes as input the map created by the map generated, the navigation planner and the robot to be used, and many other randomized parameters to cause variety in the simulations. The obstacles are created with randomized attributes before the first simulation run, and each preserves the same characteristics through all simulated episodes.
+
+- Data Transformation: 
+This module conveniently create directories for each map and simulation in which all the relevant data can be found. The end result is one line in the CSV data set which represents one simulation run on a random map. The output is also stored in directories with a yaml file format, which allows the map .png file to be stored with the final data.
+
+- Data Recorder:
+This module records the parameters that describe the simulation, and real-time data of the behavior of the robot and obstacles during all episodes of the simulation.It consists of two recorders, simulation recorder and robot recorder.
+
+- Neural Networks:
+This module train the neural net works for different planners. See the detail [here](https://github.com/ignc-research/nav-prediction/dnn).
 
 
 
 ---
 
-## Prerequisites
+## Running the Pipeline
+
+### Prerequisites
 Below is the software we used. We cannot guarantee older versions of the software to work. Yet, newer software is most likely working just fine.
 
 | Software      | Version        |
@@ -26,8 +51,8 @@ Below is the software we used. We cannot guarantee older versions of the softwar
 
 
 
----
-## Installation
+
+### Installation
 Create a catkin workspace
 Clone the repo:
 ```
@@ -63,8 +88,8 @@ Finish
 
 
 
----
-## Recording
+
+### Recording
 Recording should running in poetry:
 ```
 cd ($your workspace)/src/nav-prediction && poetry shell
