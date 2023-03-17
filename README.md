@@ -32,7 +32,7 @@ This module conveniently create directories for each map and simulation in which
 This module records the parameters that describe the simulation, and real-time data of the behavior of the robot and obstacles during all episodes of the simulation.It consists of two recorders, simulation recorder and robot recorder.
 
 - Neural Networks:
-This module train the neural net works for different planners. See the detail [here](https://github.com/ignc-research/nav-prediction/dnn).
+This module train the neural net works for different planners. See the detail [here](https://github.com/ignc-research/nav-prediction/tree/main/dnn).
 
 
 
