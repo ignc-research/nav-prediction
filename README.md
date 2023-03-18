@@ -4,7 +4,7 @@
 
 # Nav-Prediction 
 This repository provides the code used in our paper [Predicting Navigational Performance of Obstacle Avoidance Approaches Using Deep Neural Networks]().
-It provides tools to record navigation metrics and predict the navigation performance of planners. [Link to demo video.]()
+It provides tools to record navigation metrics and predict the navigation performance of planners. [Link to demo video.](https://drive.google.com/file/d/1xCTtjEbTU5NXrfO4iZkjEdgVRJIdMAjv/view?usp=share_link)
 
 
 - [Training Pipeline](#training-pipeline)
