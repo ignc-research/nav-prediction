@@ -36,7 +36,7 @@ This module records the parameters that describe the simulation, and real-time d
 This module conveniently create directories for each map and simulation in which all the relevant data can be found. The end result is one line in the CSV data set which represents one simulation run on a random map. The output is also stored in directories with a yaml file format, which allows the map .png file to be stored with the final data.
 ![training data](https://user-images.githubusercontent.com/73646817/226103949-39df156f-6b29-423c-b183-76fa553b7517.gif)
 
-Neural Networks:
+- Neural Networks:
 This module train the neural net works for different planners. See the detail [here](https://github.com/ignc-research/nav-prediction/tree/main/dnn).
 
 
