@@ -24,17 +24,17 @@ This module provides variability in the input parameters and generates a differe
 
 - [Arena-bench Simulation](https://github.com/ignc-research/arena-bench):
 This module is the development platform of our previous works, which is responsible for preparing and running the simulations. It takes as input the map created by the map generated, the navigation planner and the robot to be used, and many other randomized parameters to cause variety in the simulations. The obstacles are created with randomized attributes before the first simulation run, and each preserves the same characteristics through all simulated episodes.
-
 ![start up crop](https://user-images.githubusercontent.com/73646817/226103274-48944036-7d50-4117-a002-37840caae837.gif)
-
-
-- Data Transformation: 
-This module conveniently create directories for each map and simulation in which all the relevant data can be found. The end result is one line in the CSV data set which represents one simulation run on a random map. The output is also stored in directories with a yaml file format, which allows the map .png file to be stored with the final data.
 
 - Data Recorder:
 This module records the parameters that describe the simulation, and real-time data of the behavior of the robot and obstacles during all episodes of the simulation.It consists of two recorders, simulation recorder and robot recorder.
+![data raw](https://user-images.githubusercontent.com/73646817/226103747-f486c05a-8f88-450d-b794-0a10ce23b3d0.gif)
 
-- Neural Networks:
+- Data Transformation: 
+This module conveniently create directories for each map and simulation in which all the relevant data can be found. The end result is one line in the CSV data set which represents one simulation run on a random map. The output is also stored in directories with a yaml file format, which allows the map .png file to be stored with the final data.
+![training data](https://user-images.githubusercontent.com/73646817/226103949-39df156f-6b29-423c-b183-76fa553b7517.gif)
+
+Neural Networks:
 This module train the neural net works for different planners. See the detail [here](https://github.com/ignc-research/nav-prediction/tree/main/dnn).
 
 
