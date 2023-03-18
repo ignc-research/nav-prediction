@@ -25,6 +25,9 @@ This module provides variability in the input parameters and generates a differe
 - [Arena-bench Simulation](https://github.com/ignc-research/arena-bench):
 This module is the development platform of our previous works, which is responsible for preparing and running the simulations. It takes as input the map created by the map generated, the navigation planner and the robot to be used, and many other randomized parameters to cause variety in the simulations. The obstacles are created with randomized attributes before the first simulation run, and each preserves the same characteristics through all simulated episodes.
 
+
+<img src="https://user-images.githubusercontent.com/73646817/226102026-ba4a5921-5c05-499e-849b-4c72d47b5d1f.gif" width="500" height="250"/>
+
 - Data Transformation: 
 This module conveniently create directories for each map and simulation in which all the relevant data can be found. The end result is one line in the CSV data set which represents one simulation run on a random map. The output is also stored in directories with a yaml file format, which allows the map .png file to be stored with the final data.
 
@@ -111,4 +114,6 @@ python3 pipeline_script_ver2.py —num_maps 500 —num_episodes 30
 To facilitate the process of gathering only the data of recordings that finished successfully, running the command after finishing recording a batch:
 ```
 python3 collect_records.py
-```
+
+
+
